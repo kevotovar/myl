@@ -39,7 +39,9 @@ BASE_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_APPS = []
+THIRD_APPS = [
+    'crispy_forms',
+]
 
 MY_APPS = [
     'core',
@@ -49,6 +51,8 @@ MY_APPS = [
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + MY_APPS
 
 AUTH_USER_MODEL = 'user.User'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,7 +69,9 @@ ROOT_URLCONF = 'myl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
