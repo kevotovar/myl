@@ -12,6 +12,9 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     name = models.CharField(_('name'), max_length=30, blank=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField(_('staff'), default=False)
+    username = models.CharField(
+        _('username'), blank=True, null=True, max_length=60
+    )
 
     USERNAME_FIELD = 'email'
 

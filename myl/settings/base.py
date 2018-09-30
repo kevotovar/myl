@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env(
+    DEBUG=(bool, False),
+    FACEBOOK_KEY=(str, ''),
+    FACEBOOK_SECRET=(str, ''),
+)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -23,7 +31,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = 'ij3!!y$yoz3(q(170lp#ka3thp)y+ofw5p1)o^7pa=&7qzh)##'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,12 +49,24 @@ BASE_APPS = [
 
 THIRD_APPS = [
     'crispy_forms',
+    'social_django',
 ]
 
 MY_APPS = [
     'core',
     'user',
 ]
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'core:home'
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + MY_APPS
 
@@ -62,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'myl.urls'
@@ -79,6 +100,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -135,3 +158,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'statics')
+]
+
+SOCIAL_AUTH_FACEBOOK_KEY = env('FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, age_range'
+}
