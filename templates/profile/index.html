@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block main %}
+  <div class="header pb-5 pt-5 d-flex align-items-center">
+    <!-- Mask -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Header container -->
+    <div class="container-fluid d-flex align-items-center">
+      <div class="row">
+        <div class="col-lg-8 col-md-10">
+          <h1 class="display-2 text-white">
+            Hola {% if user.name %} {{user.name}} {% else %} {{user.username}} {% endif %}
+          </h1>
+          <p class="text-white mt-0 mb-3">
+            {% if user.name %}
+              Es necesario mantener tus datos actualizados, verifica que tus datos
+              sean correctos porque con estos datos te mandaremos recomponsas y ofertas
+              exclusivas
+            {% else %}
+              Necesitamos que actualices tu nombre, porque este va a ser registrado
+              en los torneos sancionados.
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--10">
+    <div class="row">
+      <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="row justify-content-center">
+            <div class="col-lg-3 order-lg-2">
+              <div class="card-profile-image">
+                <a href="#">
+                  <img src="{{user.avatar}}" class="rounded-circle">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body mt-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="text-center mt-6">
+                  <h3>
+                    {% if user.name %}{{user.name}}{% else %}{{user.username}}{% endif %}
+                  </h3>
+                  <h5>ID: {{user.id}}</h5>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card-profile-stats d-flex justify-content-center">
+                  <div>
+                    <span class="heading">0</span>
+                    <span class="description">Torneos</span>
+                  </div>
+                  <div>
+                    <span class="heading">0</span>
+                    <span class="description">Torneos Premiere</span>
+                  </div>
+                  <div>
+                    <span class="heading">0</span>
+                    <span class="description">Puntos</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 order-xl-1">
+        <div class="card bg-secondary shadow">
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h3 class="mb-0">Mi cuenta</h3>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button type="submit" class="btn btn-success">
+                Actualizar datos
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

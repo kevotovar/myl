@@ -6,6 +6,12 @@ from django.utils.translation import ugettext_lazy as _
 from core.models import TimeStampedModel
 from .managers import UserManager
 
+USER_TYPE = (
+    ('USER', _('user')),
+    ('STORE', _('store')),
+    ('ADMIN', _('admin')),
+)
+
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = models.EmailField(_('email'), unique=True)
@@ -15,7 +21,17 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     username = models.CharField(
         _('username'), blank=True, null=True, max_length=60
     )
+    type = models.CharField(
+        _('type'), choices=USER_TYPE, default=USER_TYPE[0][0], max_length=20
+    )
 
     USERNAME_FIELD = 'email'
 
     objects = UserManager()
+
+    @property
+    def avatar (self):
+        social_auth_data = self.social_auth.first()
+        return 'http://graph.facebook.com/{}/picture?type=large'.format(
+            social_auth_data.extra_data.get('id')
+        )
