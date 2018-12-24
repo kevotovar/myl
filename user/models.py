@@ -1,3 +1,5 @@
+import string
+import random
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -12,6 +14,11 @@ USER_TYPE = (
     ('ADMIN', _('admin')),
 )
 
+def ranking_id_generator():
+    return ''.join(
+        random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6)
+    )
+
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = models.EmailField(_('email'), unique=True)
@@ -23,6 +30,9 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     )
     type = models.CharField(
         _('type'), choices=USER_TYPE, default=USER_TYPE[0][0], max_length=20
+    )
+    ranking_id = models.CharField(
+        _('id'), max_length=60, default=ranking_id_generator
     )
 
     USERNAME_FIELD = 'email'
