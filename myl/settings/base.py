@@ -55,6 +55,7 @@ THIRD_APPS = [
 MY_APPS = [
     'core',
     'user',
+    'cards',
 ]
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
