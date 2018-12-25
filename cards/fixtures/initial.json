@@ -1,0 +1,20 @@
+[
+  {
+    "model": "cards.keyword",
+    "pk": 1,
+    "fields": {
+      "slug": "unica",
+      "name": "\u00danica",
+      "definition": "Solo puedes tener 1 copia en tu mazo."
+    }
+  },
+  {
+    "model": "cards.keyword",
+    "pk": 2,
+    "fields": {
+      "slug": "imbloqueable",
+      "name": "Imbloqueable",
+      "definition": "No puede ser bloqueada por Aliados en la fase de combate."
+    }
+  }
+]

@@ -56,6 +56,8 @@ MY_APPS = [
     'core',
     'user',
     'cards',
+    'shops',
+    'tournaments',
 ]
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
