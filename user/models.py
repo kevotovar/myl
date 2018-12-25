@@ -45,3 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         return 'http://graph.facebook.com/{}/picture?type=large'.format(
             social_auth_data.extra_data.get('id')
         )
+
+    @property
+    def full_name(self):
+        return self.name or self.username

@@ -8,6 +8,9 @@ class Shop(models.Model):
     location = models.TextField()
     employees = models.ManyToManyField(User, through='Employee')
 
+    def __str__(self):
+        return self.name
+
 class Employee(models.Model):
     OWNER = 1
     EMPLOYEE = 2
@@ -18,3 +21,6 @@ class Employee(models.Model):
     employee = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_shop')
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT, related_name='shop_employees')
     kind = models.IntegerField(choices=EMPLOYEE_KINDS, default=EMPLOYEE)
+
+    def __str__(self):
+        return '{} - {}'.format(self.shop.name, self.employee.full_name)

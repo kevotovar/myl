@@ -18,6 +18,9 @@ class Tournament(TimeStampedModel):
     level = models.IntegerField(choices=TOURNAMENT_LEVELS, default=BASIC)
     participants = models.ManyToManyField(User, through='Participant')
 
+    def __str__(self):
+        return '{} - {}'.format(self.id, self.shop.name)
+
 class Participant(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='user_tournaments')
     tournament = models.ForeignKey(Tournament, on_delete=models.PROTECT, related_name='tournament_participants')
