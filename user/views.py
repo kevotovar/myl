@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.utils.html import escape
 from django.views.decorators.http import require_http_methods
+from django_datatables_view.base_datatable_view import BaseDatatableView
 
-from . import models
+from .models import User
 from .forms import UserUpdateForm
 
-# Create your views here.
+
 @require_http_methods(['GET', 'POST'])
 def index(request):
     if request.method == 'POST':
@@ -16,3 +18,18 @@ def index(request):
     return render(request, 'profile/index.html', {
         'form': form
     })
+
+
+def ranking_view(request):
+    return render(request, 'ranking/index.html')
+
+
+class RankingListJson(BaseDatatableView):
+    model = User
+    columns = ['id', 'name', 'points']
+
+    def render_column(self, row, column):
+        if column == 'name':
+            return escape(row.name or row.username)
+        else:
+            return super(RankingListJson, self).render_column(row, column)

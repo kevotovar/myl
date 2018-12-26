@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ranking{% endblock %}
+
+{% block extra_css %}
+  {% include 'partials/datatables-css.html' %}
+{% endblock %}
+
+{% block main %}
+  <table id="datatable" class="table display">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Puntos</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <input type="hidden" id="datatable-url" value="{% url 'user:ranking-data' %}" />
+{% endblock %}
+
+{% block extra_js %}
+  {% include 'partials/datatables-js.html' %}
+  <script src="{% static 'js/datatables/ranking.js' %}" defer></script>
+{% endblock %}

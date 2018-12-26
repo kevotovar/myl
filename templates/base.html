@@ -26,9 +26,20 @@
           <a class="nav-link" href="{% url 'core:home' %}">
             Inicio
           </a>
-          <a href="#" class="nav-link">
+          <a href="{% url 'shops:shop-list' %}" class="nav-link">
+            Tiendas
+          </a>
+          <a href="{% url 'user:ranking' %}" class="nav-link">
             Ranking
           </a>
+          {% if user.has_store %}
+            <a href="#" class="nav-link">
+              Mi Tienda
+            </a>
+            <a href="#" class="nav-link">
+              Torneos
+            </a>
+          {% endif %}
           {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'user:index' %}">
               Perfil
@@ -49,10 +60,11 @@
     {% block main %}
     {% endblock %}
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" defer></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" defer></script>
   <script src="{% static 'js/argon.min.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
 </body>
 
 </html>

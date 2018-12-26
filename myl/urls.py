@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include(('core.urls', 'core'))),
     path('user/', include(('user.urls', 'user'))),
     path('oauth/', include(('social_django.urls', 'social'))),
+    path('shops/', include(('shops.urls', 'shops')))
 ]

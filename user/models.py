@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     ranking_id = models.CharField(
         _('id'), max_length=60, default=ranking_id_generator
     )
+    points = models.PositiveIntegerField(_('points'), default=0)
 
     USERNAME_FIELD = 'email'
 
@@ -49,3 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     @property
     def full_name(self):
         return self.name or self.username
+
+    @property
+    def has_store(self):
+        return bool(self.employee_shop.count())

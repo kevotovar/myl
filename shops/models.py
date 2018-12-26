@@ -15,8 +15,8 @@ class Employee(models.Model):
     OWNER = 1
     EMPLOYEE = 2
     EMPLOYEE_KINDS = (
-        (OWNER, 1),
-        (EMPLOYEE, 2),
+        (OWNER, 'Owner'),
+        (EMPLOYEE, 'Employee'),
     )
     employee = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_shop')
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT, related_name='shop_employees')
