@@ -26,7 +26,8 @@ def ranking_view(request):
 
 class RankingListJson(BaseDatatableView):
     model = User
-    columns = ['id', 'name', 'points']
+    columns = ['ranking_id', 'name', 'points']
+    max_display_length = 100
 
     def render_column(self, row, column):
         if column == 'name':

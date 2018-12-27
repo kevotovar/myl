@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Tiendas{% endblock title %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+        <h1>Tiendas de mitos y leyendas en Mexico</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Ubicacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shop in object_list %}
+                <tr>
+                    <td>{{shop.name}}</td>
+                    <td>{{shop.location}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+{% endblock main %}
