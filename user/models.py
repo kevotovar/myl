@@ -14,12 +14,13 @@ USER_TYPE = (
     ('ADMIN', _('admin')),
 )
 
+
 def ranking_id_generator():
     return ''.join(
         random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6)
     )
 
-# Create your models here.
+
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = models.EmailField(_('email'), unique=True)
     name = models.CharField(_('name'), max_length=30, blank=True)
@@ -41,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     objects = UserManager()
 
     @property
-    def avatar (self):
+    def avatar(self):
         social_auth_data = self.social_auth.first()
         return 'http://graph.facebook.com/{}/picture?type=large'.format(
             social_auth_data.extra_data.get('id')
@@ -52,5 +53,9 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         return self.name or self.username
 
     @property
-    def has_store(self):
+    def has_shop(self):
         return bool(self.employee_shop.count())
+
+    @property
+    def shop(self):
+        return self.employee_shop.first().shop

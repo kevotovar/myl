@@ -48,6 +48,7 @@ BASE_APPS = [
 ]
 
 THIRD_APPS = [
+    'rest_framework',
     'crispy_forms',
     'social_django',
 ]

@@ -11,6 +11,10 @@ class Shop(models.Model):
     def __str__(self):
         return self.name
 
+    def can_report_tournament(self):
+        self.tournaments.filter()
+
+
 class Employee(models.Model):
     OWNER = 1
     EMPLOYEE = 2

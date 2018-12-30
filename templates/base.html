@@ -14,52 +14,57 @@
   {% endblock %}
 </head>
 <body>
+  {% csrf_token %}
   <nav class="navbar navbar-vertical fixed-left navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'core:home' %}">MyL México Ranking</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'core:home' %}">MyL México Ranking</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'core:home' %}">
-            Inicio
-          </a>
-          <a href="{% url 'shops:shop-list' %}" class="nav-link">
-            Tiendas
-          </a>
-          <a href="{% url 'user:ranking' %}" class="nav-link">
-            Ranking
-          </a>
-          {% if user.has_store %}
-            <a href="#" class="nav-link">
-              Mi Tienda
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'core:home' %}">
+              Inicio
             </a>
-            <a href="#" class="nav-link">
+            <a href="{% url 'shops:shop-list' %}" class="nav-link">
+              Tiendas
+            </a>
+            <a href="{% url 'user:ranking' %}" class="nav-link">
+              Ranking
+            </a>
+            {% comment %}<a href="#" class="nav-link">
               Torneos
-            </a>
-          {% endif %}
-          {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'user:index' %}">
-              Perfil
-            </a>
-            <a class="nav-link" href="{% url 'core:logout' %}">
-              Cerrar Sesión
-            </a>
-          {% else %}
-            <a class="nav-link" href="{% url 'core:login' %}">
-              Inicar Sesión
-            </a>
-          {% endif %}
-        </li>
-      </ul>
+            </a>{% endcomment %}
+            {% if user.has_shop %}
+              <a href="{% url 'tournaments:report' %}" class="nav-link">
+                Reportar torneo
+              </a>
+            {% endif %}
+            {% if user.is_authenticated %}
+              <a class="nav-link" href="{% url 'user:index' %}">
+                Perfil
+              </a>
+              <a class="nav-link" href="{% url 'core:logout' %}">
+                Cerrar Sesión
+              </a>
+            {% else %}
+              <a class="nav-link" href="{% url 'core:login' %}">
+                Inicar Sesión
+              </a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
   <div class="main-content h-100">
     {% block main %}
     {% endblock %}
   </div>
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" defer></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" defer></script>

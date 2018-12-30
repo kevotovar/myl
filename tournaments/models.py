@@ -4,7 +4,7 @@ from core.models import TimeStampedModel
 from shops.models import Shop
 from user.models import User
 
-# Create your models here.
+
 class Tournament(TimeStampedModel):
     BASIC = 1
     ADVANCED = 2
@@ -20,6 +20,7 @@ class Tournament(TimeStampedModel):
 
     def __str__(self):
         return '{} - {}'.format(self.id, self.shop.name)
+
 
 class Participant(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='user_tournaments')
