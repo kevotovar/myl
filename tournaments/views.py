@@ -20,6 +20,11 @@ def tournament_report_post(request):
     if data:
         data.pop('csrfmiddlewaretoken')
         data_items = data.items()
+        if len(data_items) < 4:
+            return Response(
+                {'error': 'No se pueden reportar torneos con menos de 4 jugadores'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         places = [None] * len(data_items)
         for key, value in data_items:
             places[int(key)-1] = value[0]

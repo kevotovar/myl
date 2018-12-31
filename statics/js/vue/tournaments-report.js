@@ -34,11 +34,9 @@ var app = new Vue({
           swal.showLoading();
         })
         .done(function(response) {
-          console.log(response);
           swal(response.success, 'En 5 segundos se refrescara esta pantalla...');
         })
         .fail(function (response) {
-          console.log(response);
           swal({
             type: 'error',
             title: 'Ocurrio un error',

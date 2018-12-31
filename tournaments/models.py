@@ -23,6 +23,6 @@ class Tournament(TimeStampedModel):
 
 
 class Participant(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='user_tournaments')
-    tournament = models.ForeignKey(Tournament, on_delete=models.PROTECT, related_name='tournament_participants')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_tournaments')
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='tournament_participants')
     place = models.PositiveIntegerField()
