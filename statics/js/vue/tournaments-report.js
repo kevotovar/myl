@@ -25,6 +25,7 @@ var app = new Vue({
   },
   methods: {
     sendTournamentReport: function () {
+      var self = this;
       var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
       $.post(tournamentReportUrl, Object.assign({
           csrfmiddlewaretoken: csrfmiddlewaretoken,
@@ -32,15 +33,20 @@ var app = new Vue({
         .always(function () {
           swal('Mandando reporte');
           swal.showLoading();
+          self.disableSubmit = true;
         })
         .done(function(response) {
           swal(response.success, 'En 5 segundos se refrescara esta pantalla...');
+          setTimeout(function () {
+            location.reload();
+          }, 5000);
         })
         .fail(function (response) {
           swal({
             type: 'error',
             title: 'Ocurrio un error',
           });
+          self.disableSubmit = false;
         })
     },
     reset: function () {

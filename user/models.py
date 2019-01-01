@@ -59,3 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     @property
     def shop(self):
         return self.employee_shop.first().shop
+    
+    @property
+    def played_tournaments(self):
+        return self.user_tournaments.count()

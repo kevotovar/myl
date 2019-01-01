@@ -4,14 +4,23 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from core.utils import count_duplicates
+from core.utils import count_duplicates, get_current_time_with_tz, get_start_date_and_end_date_from_datetime
 from tournaments.models import Tournament, Participant
 from user.models import User
+from shops.models import Shop
 
 
 def tournaments_report(request):
-    store = request.user.shop
-    return render(request, 'tournaments/report.html')
+    shop_id = request.user.shop.id
+    shop = Shop.objects.get(id=shop_id)
+    current_time = get_current_time_with_tz()
+    (start_time, end_time) = get_start_date_and_end_date_from_datetime(datetime_obj=current_time)
+    tournaments_count = shop.tournaments.filter(created__gte=start_time, created__lte=end_time).count()
+    context = dict(
+        tournaments_count=tournaments_count,
+        shop=shop,
+    )
+    return render(request, 'tournaments/report.html', context=context)
 
 
 @api_view(['POST'])

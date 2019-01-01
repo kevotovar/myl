@@ -7,14 +7,18 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h1>Reporta el torneo de tu tienda</h1>
+        <h1>Reporta el torneo de {{ shop.name }}</h1>
       </div>
       <div class="col-12">
         <p>
           Solo puedes reportar 4 torneos al mes, que son los correspondientes a la liga
         </p>
+        <p class="strong">
+          Torneos reportados {{ tournaments_count }} de 4
+        </p>
       </div>
-      <div class="col-12">
+      {% if tournaments_count < 4 %}
+        <div class="col-12">
         {% verbatim %}
           <div id="app">
             <div class="form-inline">
@@ -48,6 +52,11 @@
           </div>
         {% endverbatim %}
       </div>
+      {% else %}
+        <div class="col-12">
+          <h3>Ya has reportado todos los torneos del mes</h3>
+        </div>
+      {% endif %}
     </div>
   </div>
   <input type="hidden" id="tournament-report-url" value="{% url 'tournaments:report-send' %}" />
