@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         _('type'), choices=USER_TYPE, default=USER_TYPE[0][0], max_length=20
     )
     ranking_id = models.CharField(
-        _('id'), max_length=60, default=ranking_id_generator
+        _('id'), max_length=60, default=ranking_id_generator, unique=True
     )
     points = models.PositiveIntegerField(_('points'), default=0)
 
