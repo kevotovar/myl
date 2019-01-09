@@ -32,12 +32,12 @@
               Inicio
             </a>
           </li>
-          <li>
+          <li class="nav-item">
             <a href="{% url 'shops:shop-list' %}" class="nav-link">
               Tiendas
             </a>
           </li>
-          <li>
+          <li class="nav-item">
             <a href="{% url 'user:ranking' %}" class="nav-link">
               Ranking
             </a>
@@ -46,25 +46,25 @@
               Torneos
             </a>{% endcomment %}
             {% if user.has_shop %}
-              <li>
+              <li class="nav-item">
                 <a href="{% url 'tournaments:report' %}" class="nav-link">
                   Reportar torneo
                 </a>
               </li>
             {% endif %}
             {% if user.is_authenticated %}
-              <li>
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:index' %}">
                   Perfil
                 </a>
               </li>
-              <li>
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'core:logout' %}">
                   Cerrar Sesión
                 </a>
               </li>
             {% else %}
-              <li>
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'core:login' %}">
                   Inicar Sesión
                 </a>

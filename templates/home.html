@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Inicio{% endblock %}
 
 {% block main %}
   <main>
-    <h1>Hello world</h1>
+    <div class="card card-image image-background-center"
+         style="background-image: url({% static 'images/taj.jpg' %});">
+      <div class="text-center py-5 px-4 my-5">
+        <div class="my-5">
+          {% if not request.user %}
+            <h2 class="card-title h1-responsive pt-3 mb-5 font-bold">
+              <strong>Registrate en el ranking del juego numero 1 del reino</strong>
+            </h2>
+            <p class="mx-5 mb-5">
+              Podras clasificar directamente al campeon de campeones si eres de los primeros N jugadores
+            </p>
+            <a class="btn btn-primary btn-md" href="{% url 'core:login' %}"><i class="fas fa-user-plus left"></i> Registrarse</a>
+          {% else %}
+            <h2 class="card-title h1-responsive pt-3 mb-5 font-bold">
+              <strong>Ve tu posicion en el ranking</strong>
+            </h2>
+            <p class="mx-5 mb-5">
+              Checa tu posicion en el ranking para ver si clasificas al campeon de campeones
+            </p>
+            <a class="btn btn-primary btn-md" href="{% url 'user:ranking' %}"><i class="fas fa-trophy left"></i> Ver posicion</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </main>
 {% endblock %}
