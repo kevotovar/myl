@@ -1,3 +1,12 @@
 body, html {
   height: 100%;
 }
+
+.image-background {
+  background-position: top center;
+  background-size: cover;
+}
+
+.text-shadow {
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+}
