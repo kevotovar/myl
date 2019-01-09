@@ -7,15 +7,13 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=postgres
-    ports:
-      - "5432:5432"
   web:
     build: .
     command: ["./run_web.sh"]
     volumes:
       - .:/webapps
     ports:
-      - "8000:8000"
+      - "8001:8001"
     links:
       - db
     depends_on:

@@ -24,30 +24,25 @@ $(document).ready(function () {
       sSortDescending: ": Activar para ordenar la columna de manera descendente"
       }
     },
-    order: [[2, 'desc']],
+    order: [[1, 'desc']],
     columnDefs: [
-      {
-        searchable: false,
-        orderable: false,
-        targets: 0
-      },
       {
         name: 'ranking_id',
         orderable: false,
         searchable: true,
-        targets: [1]
+        targets: [0]
       },
       {
         name: 'name',
         orderable: true,
         searchable: true,
-        targets: [2]
+        targets: [1]
       },
       {
         name: 'points',
         orderable: true,
         searchable: true,
-        targets: [3]
+        targets: [2]
       }
     ],
     searching: true,
@@ -55,9 +50,4 @@ $(document).ready(function () {
     serverSide: true,
     ajax: $('#datatable-url').val()
   });
-  table.on( 'order.dt search.dt', function () {
-      table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-      cell.innerHTML = i+1;
-    });
-  }).draw();
 });

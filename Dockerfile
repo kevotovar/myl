@@ -12,4 +12,4 @@ RUN pip install -r /webapps/requirements.txt
 RUN pip install -r /webapps/dev_requirements.txt
 ADD . /webapps/
 # Django service
-EXPOSE 8000
+EXPOSE 8001
