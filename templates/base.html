@@ -35,7 +35,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'core:about' %}">Acerca de</a>
           </li>
-          <li class="nav-item">
+          {% comment %}<li class="nav-item">
             <a href="{% url 'shops:shop-list' %}" class="nav-link">
               Tiendas
             </a>
@@ -45,9 +45,11 @@
               Ranking
             </a>
           </li>
-            {% comment %}<a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               Torneos
-            </a>{% endcomment %}
+            </a>
+          </li>{% endcomment %}
             {% if user.has_shop %}
               <li class="nav-item">
                 <a href="{% url 'tournaments:report' %}" class="nav-link">
